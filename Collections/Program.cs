@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+
 
 public class MostRepeatedWord
 {
@@ -8,30 +10,32 @@ public class MostRepeatedWord
     {
         String line, word = "";
         int count = 0, maxCount = 0;
-       // ArrayList words = new ArrayList();
         var words = new List<string>();
+        
+
 
 
 
         //Opens file in read mode  
-        System.IO.StreamReader file = new System.IO.StreamReader(@"E:\TestFolder\Text11.txt");
+        System.IO.StreamReader file = new StreamReader(@"E:\TestFolder\Text1.txt");
 
         //Reads each line  
         while ((line = file.ReadLine()) != null)
         {
             String[] string1 = line.ToLower().Split(new Char[] { ',', '.', ' ', '-', }, StringSplitOptions.RemoveEmptyEntries);
-            //Adding all words generated in previous step into words  
+            //добавляем слова
+
             foreach (String s in string1)
             {
                 words.Add(s);
             }
         }
 
-        //Determine the most repeated word in a file 
+        //ищем самый повтор слова в файле
         for (int i = 0; i < words.Count; i++)
         {
             count = 1;
-            //Count each word in the file and store it in variable count  
+            //считаем каждое слово в файле и сохраним его в переменной count
             for (int j = i + 1; j < words.Count; j++)
             {
                 if (words[i].Equals(words[j]))
@@ -39,8 +43,7 @@ public class MostRepeatedWord
                     count++;
                 }
             }
-            //If maxCount is less than count then store value of count in maxCount   
-            //and corresponding word to variable word  
+         
             if (count > maxCount)
             {
                 maxCount = count;
@@ -48,7 +51,7 @@ public class MostRepeatedWord
             }
         }
 
-        Console.WriteLine("Most repeated word: " + word);
+        Console.WriteLine("самые повторяемые слова: " + word);
         file.Close();
     }
 }

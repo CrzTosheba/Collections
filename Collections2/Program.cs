@@ -10,37 +10,36 @@ namespace CountRepeatedWordCount
     {
         static void Main(string[] args)
         {
-            
-        }
-        public static void FinDDuplicates(string filepath)
-        {
-            using (StreamReader reader = new StreamReader(@"E:\TestFolder\Text1.txt"))
-            {
-                int val = 0;
-                Dictionary<string, int> dWords = new Dictionary<string, int>();
-                string contents = reader.ReadToEnd();
-                string[] strArContents = contents.Split(new string[] { "", " ", "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 0; i < strArContents.Length; i++)
-                {
-                    if (dWords.ContainsKey(strArContents[i]))
-                    {
-                        dWords.TryGetValue(strArContents[i], out val);
-                        dWords[strArContents[i]] = val + 1;
+            string Word;
+           // Console.WriteLine("Enter the word!..");
+           // Word = Console.ReadLine();   // Read the Input string from User at Run Time  
+            System.IO.StreamReader file = new System.IO.StreamReader(@"E:\TestFolder\Text1.txt");
 
-                    }
-                    else
-                    {
-                        dWords.Add(strArContents[i], 1);
-                    }
-                }
-                var quer = from n in dWords where (n.Value > 0) select n;
-                foreach (var n in quer)
+
+            var Value = Word.Split(' ');  // Split the string using 'Space' and stored it an var variable  
+            Dictionary<string, int> RepeatedWordCount = new Dictionary<string, int>();
+
+
+            for (int i = 0; i < Value.Length; i++) //loop the splited string  
+            {
+                if (RepeatedWordCount.ContainsKey(Value[i])) // Check if word already exist in dictionary update the count  
                 {
-                    Console.Write(n.Key + " : ");
-                    Console.WriteLine(n.Value);
+                    int value = RepeatedWordCount[Value[i]];
+                    RepeatedWordCount[Value[i]] = value + 1;
+                }
+                else
+                {
+                    RepeatedWordCount.Add(Value[i], 1);  // if a string is repeated and not added in dictionary , here we are adding   
                 }
             }
-            Console.Read();
+            Console.WriteLine();
+            Console.WriteLine("------------------------------------");
+            Console.WriteLine("Repeated words and counts");
+            foreach (KeyValuePair<string, int> kvp in RepeatedWordCount)
+            {
+                Console.WriteLine(kvp.Key + " Counts are " + kvp.Value);  // Print the Repeated word and its count  
+            }
+            Console.ReadKey();
         }
     }
 }
